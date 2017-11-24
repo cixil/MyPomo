@@ -7,6 +7,27 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(document).ready( function(){
+				// Short Break Options
+				for (var i=1; i<=10; i++){
+						$(".short-break").append("<option>"+i+"</option>");
+				}
+				// Long Break Options
+				for (var i=10; i<=30; i++){
+						$(".long-break").append("<option>"+i+"</option>");
+				}
+				// Study Time Options
+				for (var i=20; i<=30; i++){
+						$(".study-time").append("<option>"+i+"</option>");
+				}
+		});
+	</script>
+
     {{content-for "head"}}
 
     <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
@@ -16,6 +37,48 @@
   </head>
   <body>
     {{content-for "body"}}
+		<div class="wrapper">
+				<div class="row">
+						<div class="col-sm-4" id="side_pain">
+
+								<h1>My Pomo</h1>
+								Welcome to MyPomo, your free, easy, online Pomodoro Timer
+								<div id="settings">
+										<span><b> ~ Settings ~ </b></span>
+										<br>
+										<div class="form-group">
+												<label for="sel1">Short Break:</label>
+												<select class="short-break" id="sel1">
+												</select>
+
+												<label for="sel1">Long Break:</label>
+												<select class="long-break" id="sel1">
+												</select>
+
+												<label for="sel1">Study Break:</label>
+												<select class="study-time" id="sel1">
+												</select>
+										</div>
+								</div>
+
+								<div id="todo">
+										To Do:
+										<div id="task-list">
+										</div>
+
+										<div class="form-group">
+												<label for="task">Add a new task:</label>
+												<input type="text" class="form-control" id="task">
+										</div>
+								</div>
+						</div>
+						<div class="col-sm-8">
+								some text
+								<div id=timer>
+								</div>
+						</div>
+				</div>
+		</div>
 
     <script src="{{rootURL}}assets/vendor.js"></script>
     <script src="{{rootURL}}assets/my-pomo.js"></script>
@@ -23,3 +86,15 @@
     {{content-for "body-footer"}}
   </body>
 </html>
+<!-- 
+		For Programming Reference:
+		- Settings -
+		.short-break
+		.long-break
+		.study-time
+
+		- To Do -
+		#todo
+		#task-list	-append todo entries here
+-->
+

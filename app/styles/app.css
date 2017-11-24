@@ -1,0 +1,33 @@
+html,body,.wrapper {
+		height: 100%;
+}
+
+body {
+		background-color: #c4eec4;
+		border: 10px solid #9ce29c;
+}
+
+.row {
+		height: 100%;
+}
+
+#side_pain {
+		min-height: 100%;
+		background-color:#9ce29c;
+}
+
+#todo {
+		width:200px;
+}
+#task-list {
+		background-color: #ffffcc;
+		height:200px;
+}
+
+#settings {
+		background-color: hsla(0, 0%, 75%, .75);
+}
+
+#settings #sel1 {
+		width: 30px;
+}
