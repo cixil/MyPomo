@@ -1,24 +1,38 @@
-html,body,.wrapper {
+html,body{
 		height: 100%;
+		background-color: #9ce29c;
 }
 
-body {
+.wrapper {
+		height: 700px;
+		width: 990px;
 		background-color: #c4eec4;
-		border: 10px solid #9ce29c;
+		border: 20px solid #9ce29c;
 }
 
-.row {
-		height: 100%;
+.row {	height: 100%;}
+
+.container { /*Make sure this is compatable with safari*/
+		display: flex;
 }
 
-#side_pain {
+/*---- SIDE PANE ---------------------------------------*/
+#side_pane {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
 		min-height: 100%;
 		background-color:#9ce29c;
 }
 
-#todo {
-		width:200px;
+.side_pane_container {
+		padding: 15px;
+		width:270px;
 }
+
+#todo {
+}
+
 #task-list {
 		background-color: #ffffcc;
 		height:200px;
@@ -28,6 +42,26 @@ body {
 		background-color: hsla(0, 0%, 75%, .75);
 }
 
-#settings #sel1 {
-		width: 30px;
+#settings input{
+		width: 50px;
 }
+
+
+/*---- POMODORO TIMER ---------------------------------------*/
+#pomodoro {
+		display:flex;
+		align-self: center;
+		justify-content: center;
+		position: absolute;
+}
+
+#innerPom{
+		align-self: center;
+		font-size: 40pt;
+		color: #c04242;
+		position: absolute;
+}
+#timer{
+		font-size: 70pt;
+}
+
