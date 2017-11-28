@@ -33,9 +33,85 @@ $(document).ready( function(){
 		var isStudyTime = true;
 		var pomsperset = 4; //provide a way to choose amount of poms before long break? 3 or 4^^
 		var poms = 0;
+		
+		var username;
+		var expiration = 365; // time in days until user cookie expires
+
+
+		// Save Options with Cookie ********************************************************************
+
+		function setCookie( cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays*24*60*60*1000));
+				document.cookie = cname + "=" + cvalue + "; expires="+d.toUTCString() + ";path=/";
+		}
+
+		function getCookie(cname) {
+				var name = cname + "=";
+				var decodedCookie = decodeURIComponent(document.cookie);
+				var ca = decodedCookie.split(';');
+				for(var i = 0; i <ca.length; i++) {
+						var c = ca[i];
+						while (c.charAt(0) == ' ') {
+								c = c.substring(1);
+						}
+						if (c.indexOf(name) == 0) {
+								return c.substring(name.length, c.length);
+						}
+				}
+				return "";
+		}
+
+		function getNewUser(){
+				var newuser= "";
+				while (newuser =="" | newuser == null | userInDB()) {
+						if (userInDB(newuser)){ 
+								newuser = prompt("That username is taken, please choose another: ", "");
+						} else {
+								newuser = prompt("Please enter a unique username: ", "");
+						}
+				}
+
+				return newuser;
+		}
+
+		function checkCookie() {
+				var user = getCookie("user");
+				if (user != "") { //cookie exists
+						username = user;
+
+				} else {
+						user = getNewUser();
+						setCookie("user", user, expiration);
+				}
+		}
+
+		checkCookie();
+		// DataBase Functions / Set User Settings  *****************************************************
+		
+		function userInDB( user ){  // return true if user in DB, false if not <- Molly?
+				return false;
+		}
+
+		function restoreSettings() {
+
+				// set whatever settings (short break, long break, etc) from DB
+				// and update display
+
+		}
+		
+		
+		// Change The Display Functions ****************************************************************
+		
+		$('#title').text(username +"'s Pomodoro"); //Personalize title with username from cookie
+
+		// Communicate with User - used to display message after intervals of study or break 
+		function say(message){
+				alert("message") //going to change later?
+		}
+
 
 		// Interval Options     ************************************************************************
-		//$('#st').selectpicker('val','5');
 		// Short Break Options
 		for (var i=1; i<=10; i++){
 				$(".short-break").append("<option>"+i+"</option>");
@@ -49,10 +125,6 @@ $(document).ready( function(){
 				$(".study-time").append("<option>"+i+"</option>");
 		}
 
-
-		// Communicate with User ************************************************************************
-		function say(message){
-		}
 
 		// Pomodoro technique algorithm to ensure the proper interval for the timer *********************
 		var getInterval = function(){
@@ -107,7 +179,9 @@ $(document).ready( function(){
 										case shortBreak:
 												say("Time to Study!");
 									}
-								alert("Pomodoro Ended!"); //Make an alarm sound play when pom has ended?
+								alert("Pomodoro Ended!");
+								
+								//Make an alarm sound play when pom has ended?
 								countdown("timer", interval = getInterval(), 0); // Start next interval.
 						} else {
 								time = new Date( msLeft );
