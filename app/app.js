@@ -109,9 +109,13 @@ $(document).ready( function(){
 
 		}
 
-		function restoreSettings() {
+		function restore(user) {
 				// set whatever settings (short break, long break, etc) from DB and display should update automatically
+				// display todo list
 		}
+
+
+		// when clicked, to do list item item to completed
 
 		$('#changeSettings').click(function() {
 				var txt, confmsg = "Your current progress and timer will be reset, are you sure?\n To Do list will be saved.";
@@ -153,7 +157,7 @@ $(document).ready( function(){
 
 		// Communicate with User - used to display message after intervals of study or break 
 		function say(message){
-				alert("message") //going to change later?
+				alert(message) //going to change later?
 		}
 
 
@@ -227,13 +231,8 @@ $(document).ready( function(){
 
 		// What happens when interval has ended:
 		function timerEnd() {
-				console.log("timer ended");
-				console.log(studyTime);
-				
 				switch (interval){
-						case studytime: 
-								console.log('is study time');
-
+						case studyTime: 
 								if (isStudyTime){ 	// Added extra check in case studyTime and 
 													// longBreak are the same amount.
 										poms++;		// VERY IMPORTANT
