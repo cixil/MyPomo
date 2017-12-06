@@ -65,3 +65,13 @@ html,body{
 		font-size: 70pt;
 }
 
+#pause {
+		color: #c04242;
+		width: 120px;
+		font-size: 20pt;
+		background-color: #ffb3b3;
+		border: none;
+		text-align: center;
+		
+}
+

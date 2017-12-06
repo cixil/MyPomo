@@ -27,12 +27,13 @@ const App = Application.extend({
 
 $(document).ready( function(){
 
-		// Add code to update variables for the time segments, short, long, study?
 		var shortBreak = 5, longBreak = 25, studyTime = 25;
 		var interval = studyTime;
 		var isStudyTime = true;
 		var pomsperset = 4; //provide a way to choose amount of poms before long break? 3 or 4^^
 		var poms = 0;
+
+		var paused = false;
 		
 		var username;
 		var expiration = 365; // time in days until user cookie expires
@@ -45,6 +46,8 @@ $(document).ready( function(){
 				d.setTime(d.getTime() + (exdays*24*60*60*1000));
 				document.cookie = cname + "=" + cvalue + "; expires="+d.toUTCString() + ";path=/";
 		}
+
+		//if cookie expired call deleteUSER
 
 		function getCookie(cname) {
 				var name = cname + "=";
@@ -65,13 +68,13 @@ $(document).ready( function(){
 		function getNewUser(){
 				var newuser= "";
 				while (newuser =="" | newuser == null | userInDB()) {
-						if (userInDB(newuser)){ 
+						if (!userIsValid(newuser)){ 
 								newuser = prompt("That username is taken, please choose another: ", "");
 						} else {
 								newuser = prompt("Please enter a unique username: ", "");
 						}
 				}
-
+				addUser(user);
 				return newuser;
 		}
 
@@ -87,21 +90,64 @@ $(document).ready( function(){
 		}
 
 		checkCookie();
+		saveSettings();
+
+
 		// DataBase Functions / Set User Settings  *****************************************************
 		
-		function userInDB( user ){  // return true if user in DB, false if not <- Molly?
-				return false;
+		function userIsValid(user){  
+				// return true if user not in DB or if user is expired, false if not <- Molly?
+				return true;
+		}
+
+		function addUser(user) {
+				// add user and a time stamp to DB
+		}
+
+		function saveSettings(user) {
+				// save shortbreak, long, etc to DB
+
 		}
 
 		function restoreSettings() {
-
-				// set whatever settings (short break, long break, etc) from DB
-				// and update display
-
+				// set whatever settings (short break, long break, etc) from DB and display should update automatically
 		}
+
+		$('#changeSettings').click(function() {
+				var txt, confmsg = "Your current progress and timer will be reset, are you sure?\n To Do list will be saved.";
+				if (confirm(confmsg) == true)
+				{
+						//update database values <- Molly?
+
+						shortBreak = $('.short-break').val();
+						longBreak = $('.long-break').val();
+						studyTime = $('.study-time').val();
+						
+						$('#pause').text("Pause");
+						restartTimer();
+				}
+		});
 		
 		
 		// Change The Display Functions ****************************************************************
+
+		$('#pause').text("Start");
+		
+		$('#pause').click(function(){
+				switch($('#pause').text()) {
+						case "Start":
+								$('#pause').text("Pause");
+								startTimer(interval=getInterval(), 0);
+								break;
+						case "Pause":	
+								$('#pause').text("Resume");
+								pauseTimer();
+								break;
+						case "Resume":
+								$('#pause').text("Pause");
+								resumeTimer();
+				}
+		});
 		
 		$('#title').text(username +"'s Pomodoro"); //Personalize title with username from cookie
 
@@ -152,53 +198,84 @@ $(document).ready( function(){
 				return (poms % pomsperset == 0);
 		}
 
+
 		// Timer *****************************************************************************************
-		countdown("timer", interval = getInterval(), 0);
 
-		function countdown( elementName, minutes, seconds )	{
+		var second = 1000;
+		var minute = second * 60;
+		var end;
+		var id;
+		var value = "0:0";
 
-				var element, endTime, hours, mins, msLeft, time;
-				function twoDigits( n )	{ return (n <= 9 ? "0" + n : n);}
+		function showTimer() {
+				var now = Date.now(),
+				distance = end - now;
 
-				function updateTimer()
-				{
-						msLeft = endTime - (+new Date);
-						if ( msLeft < 1000 ) {          // Pomodoro has ended
-								switch (interval){
-										case studytime: 
-												if (isStudyTime){ 	// Added extra check in case studyTime and 
-																    // longBreak are the same amount.
-														poms++;		// VERY IMPORTANT
-														if (isTimeForLongBreak) { say("Nice work. Take a break!");}	// add a feature to pull a message randomly from a list^^ ie: "Time for a snack!", "Nice work!", "Let's get shit done"
-												}
-												//else { continue; }	// should skip the break and jump to case long break.
-												break;				// not sure if works yet.
-										case longBreak:
-												say("Time to get back to work!");
-												break;
-										case shortBreak:
-												say("Time to Study!");
-									}
-								alert("Pomodoro Ended!");
-								
-								//Make an alarm sound play when pom has ended?
-								countdown("timer", interval = getInterval(), 0); // Start next interval.
-						} else {
-								time = new Date( msLeft );
-								hours = time.getUTCHours();
-								mins = time.getUTCMinutes();
-								element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' 
-										+ twoDigits( time.getUTCSeconds() );
-								setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
-						}
+				if (distance <= 0) {
+						clearInterval(id);
+						timerEnd();
+						restartTimer(interval = getInterval(), 0); //start next interval
 				}
 
-				element = document.getElementById( elementName );
-				endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
-				updateTimer();
+				var minutes = Math.floor((distance) / minute),
+				seconds = Math.floor((distance % minute) / second),
+				milliseconds = distance % second,
+				countdownElement = document.getElementById('timer');
+
+				countdownElement.textContent = minutes + ':' + seconds;
 		}
 
-		// add a way to pause timer?
+		// What happens when interval has ended:
+		function timerEnd() {
+				console.log("timer ended");
+				console.log(studyTime);
+				
+				switch (interval){
+						case studytime: 
+								console.log('is study time');
+
+								if (isStudyTime){ 	// Added extra check in case studyTime and 
+													// longBreak are the same amount.
+										poms++;		// VERY IMPORTANT
+										if (isTimeForLongBreak) { say("Nice work. Take a break!");}	// add a feature to pull a message randomly from a list^^ ie: "Time for a snack!", "Nice work!", "Let's get shit done"
+								}
+								//else { continue; }	// should skip the break and jump to case long break.
+								break;				// not sure if works yet.
+						case longBreak:
+								say("Time to get back to work!");
+								break;
+						case shortBreak:
+								say("Time to Study!");
+				}
+				//Make an alarm sound play when pom has ended?
+				
+		}
+
+		function startTimer(m, s) {
+				console.log(interval);
+				end = Date.now() + (m * 60 * 1000) + (s*1000);
+				id = setInterval(showTimer, 10);
+		}
+
+		function pauseTimer() {
+				value = timer.textContent;
+				clearInterval(id);
+		}
+
+		function resumeTimer() {
+				var t = value.split(":");
+				startTimer( parseInt(t[0], 10), parseInt(t[1], 10));
+		}
+
+		function restartTimer(){
+				poms = 0;
+				pauseTimer();
+				startTimer(interval = getInterval(), 0);
+		}
+
+
+
+		// *****************************************************************************************
 
 
 		// Add code to append to do list items and strike them out when clicked?
