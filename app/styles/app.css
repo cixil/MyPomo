@@ -20,17 +20,30 @@ html,body{
 #side_pane {
 		display: flex;
 		flex-direction: column;
-		justify-content: space-evenly;
+		justify-content: flex-start;
 		min-height: 100%;
 		background-color:#9ce29c;
+}
+
+#title {
+}
+
+#side_pane #intervals label {
+		display: inline-block;
+		width: 180px;
+}
+#side_pane #settings input {
+		border: 2px solid #9ce29c;
+		width: 50px;
+}
+
+#update-settings {
+		border: none;
 }
 
 .side_pane_container {
 		padding: 15px;
 		width:270px;
-}
-
-#todo {
 }
 
 #task-list {
@@ -42,8 +55,10 @@ html,body{
 		background-color: hsla(0, 0%, 75%, .75);
 }
 
-#settings input{
-		width: 50px;
+.alarm-menu {
+		display: inline-block;
+		width: 133px;
+		height: 10px;
 }
 
 
@@ -57,21 +72,28 @@ html,body{
 
 #innerPom{
 		align-self: center;
-		font-size: 40pt;
 		color: #c04242;
 		position: absolute;
 }
 #timer{
-		font-size: 70pt;
+		font-size: 80pt;
 }
 
 #pause {
 		color: #c04242;
-		width: 120px;
+		width: 130px;
 		font-size: 20pt;
 		background-color: #ffb3b3;
-		border: none;
+		border: 2px solid #993333;
 		text-align: center;
-		
+		margin:-10px 50px 0 50px ;
 }
 
+#pause:hover{
+		color: #c04242;
+}
+
+#pause:active{
+		background-color: #ff9999;
+		color:#993333;
+}

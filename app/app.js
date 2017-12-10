@@ -30,13 +30,37 @@ $(document).ready( function(){
 		var shortBreak = 5, longBreak = 25, studyTime = 25;
 		var interval = studyTime;
 		var isStudyTime = true;
-		var pomsperset = 4; //provide a way to choose amount of poms before long break? 3 or 4^^
+		var pomsperset = 4;
 		var poms = 0;
+
+		var alarmPath = "/assets/alarms/"; // path to alarm sounds
+		var alarms = [
+				{name:"Store Chime", path:(alarmPath + "store-chime.mp3")},
+				{name:"Metronome", path:(alarmPath + "metronome.mp3")},
+				{name:"Ship Bell", path:(alarmPath + "ship-bell.mp3")},
+				{name:"Zen Temple", path:(alarmPath + "zen-temple.mp3")}
+				//{name:"", path:(alarmPath + "")},
+		]
+		var alarmIndex = 0; // default alarm
 
 		var paused = false;
 		
 		var username;
 		var expiration = 365; // time in days until user cookie expires
+
+
+		// Sound Options *******************************************************************************
+
+		for (i = 0; i<alarms.length; i++) {
+				$('.alarm-menu').append('<option>'+ alarms[i].name +'</option>');
+		};
+
+		// fix so person can select alarm.
+
+		function playAlarm(){
+				$('#audio').append('<source src=\"'+alarms[alarmIndex].path+'\" type=\"audio/mpeg\">');	
+				document.getElementById("audio").play();
+		}
 
 
 		// Save Options with Cookie ********************************************************************
@@ -107,6 +131,12 @@ $(document).ready( function(){
 		function saveSettings(user) {
 				// save shortbreak, long, etc to DB
 
+				//leave this for now
+				shortBreak = $('.short-break').val();
+				longBreak = $('.long-break').val();
+				studyTime = $('.study-time').val();
+				pomsperset = $('.pomsperset').val();
+				alarmIndex = document.getElementById('sel1').selectedIndex; // fix this if we add another sel1
 		}
 
 		function restore(user) {
@@ -117,17 +147,12 @@ $(document).ready( function(){
 
 		// when clicked, to do list item item to completed
 
-		$('#changeSettings').click(function() {
+		$('#update-settings').click(function() {
 				var txt, confmsg = "Your current progress and timer will be reset, are you sure?\n To Do list will be saved.";
 				if (confirm(confmsg) == true)
 				{
-						//update database values <- Molly?
-
-						shortBreak = $('.short-break').val();
-						longBreak = $('.long-break').val();
-						studyTime = $('.study-time').val();
-						
 						$('#pause').text("Pause");
+						saveSettings();
 						restartTimer();
 				}
 		});
@@ -231,6 +256,7 @@ $(document).ready( function(){
 
 		// What happens when interval has ended:
 		function timerEnd() {
+				playAlarm();
 				switch (interval){
 						case studyTime: 
 								if (isStudyTime){ 	// Added extra check in case studyTime and 
@@ -246,8 +272,6 @@ $(document).ready( function(){
 						case shortBreak:
 								say("Time to Study!");
 				}
-				//Make an alarm sound play when pom has ended?
-				
 		}
 
 		function startTimer(m, s) {
