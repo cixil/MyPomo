@@ -5,16 +5,14 @@ html,body{
 
 .wrapper {
 		height: 700px;
-		width: 990px;
-		background-color: #c4eec4;
+		width: 900px;
 		border: 20px solid #9ce29c;
+	    display: flex-grow;
+		justify-self: center;
+		margin: auto;
 }
 
 .row {	height: 100%;}
-
-.container { /*Make sure this is compatable with safari*/
-		display: flex;
-}
 
 /*---- SIDE PANE ---------------------------------------*/
 #side_pane {
@@ -28,11 +26,24 @@ html,body{
 #title {
 }
 
+.menu .panel-title a{
+		color: black;
+}
+.menu .panel {
+		padding: 15px;
+		width:270px;
+}
+
 #side_pane #intervals label {
 		display: inline-block;
 		width: 180px;
 }
-#side_pane #settings input {
+
+#settings {
+		background-color: hsla(0, 0%, 85%, .80);
+}
+
+#settings input {
 		border: 2px solid #9ce29c;
 		width: 50px;
 }
@@ -41,9 +52,12 @@ html,body{
 		border: none;
 }
 
-.side_pane_container {
-		padding: 15px;
-		width:270px;
+#about {
+		background-color: hsla(60, 100%, 85%, .75);
+}
+
+#usage  {
+		background-color: hsla(0, 84%, 81%, .75);
 }
 
 #task-list {
@@ -51,9 +65,6 @@ html,body{
 		height:200px;
 }
 
-#settings {
-		background-color: hsla(0, 0%, 75%, .75);
-}
 
 .alarm-menu {
 		display: inline-block;
@@ -68,6 +79,7 @@ html,body{
 		align-self: center;
 		justify-content: center;
 		position: absolute;
+		background-color: #c4eec4;
 }
 
 #innerPom{
@@ -90,7 +102,7 @@ html,body{
 }
 
 #pause:hover{
-		color: #c04242;
+		background-color: #f7a6a6;
 }
 
 #pause:active{

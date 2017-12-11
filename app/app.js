@@ -40,7 +40,7 @@ $(document).ready( function(){
 				{name:"Ship Bell", path:(alarmPath + "ship-bell.mp3")},
 				{name:"Zen Temple", path:(alarmPath + "zen-temple.mp3")}
 				//{name:"", path:(alarmPath + "")},
-		]
+		];
 		var alarmIndex = 0; // default alarm
 
 		var paused = false;
@@ -50,15 +50,11 @@ $(document).ready( function(){
 
 
 		// Sound Options *******************************************************************************
-		
 		for (var i = 0; i<alarms.length; i++) {
 				$('.alarm-menu').append('<option>'+ alarms[i].name +'</option>');
 		};
 
-
-		$('.alarm-menu').change(function(){
-				playAlarm();
-		});
+		$('.alarm-menu').change(function(){ playAlarm(); });
 
 		function playAlarm(){
 				console.log("index= "+document.getElementById('sel1').selectedIndex);
@@ -149,9 +145,6 @@ $(document).ready( function(){
 				// display todo list
 		}
 
-
-		// when clicked, to do list item item to completed
-
 		$('#update-settings').click(function() {
 				var txt, confmsg = "Your current progress and timer will be reset, are you sure?\n To Do list will be saved.";
 				if (confirm(confmsg) == true)
@@ -184,7 +177,8 @@ $(document).ready( function(){
 				}
 		});
 		
-		$('#title').text(username +"'s Pomodoro"); //Personalize title with username from cookie
+		$('#title').text(username +"'s Pomodoro");  // Personalize title with username from cookie
+		$('#timer').text(studyTime+":00"); 			// set initial time display.
 
 		// Communicate with User - used to display message after intervals of study or break 
 		function say(message){
