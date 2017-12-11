@@ -50,16 +50,21 @@ $(document).ready( function(){
 
 
 		// Sound Options *******************************************************************************
-
-		for (i = 0; i<alarms.length; i++) {
+		
+		for (var i = 0; i<alarms.length; i++) {
 				$('.alarm-menu').append('<option>'+ alarms[i].name +'</option>');
 		};
 
-		// fix so person can select alarm.
+
+		$('.alarm-menu').change(function(){
+				playAlarm();
+		});
 
 		function playAlarm(){
-				$('#audio').append('<source src=\"'+alarms[alarmIndex].path+'\" type=\"audio/mpeg\">');	
-				document.getElementById("audio").play();
+				console.log("index= "+document.getElementById('sel1').selectedIndex);
+				alarmIndex = document.getElementById('sel1').selectedIndex;
+				$('#audio').html('<audio id=\"audio'+alarmIndex+'\" source src=\"'+alarms[alarmIndex].path+'\" type=\"audio/mpeg\"></audio>');	
+				document.getElementById("audio"+alarmIndex).play();
 		}
 
 
@@ -153,6 +158,7 @@ $(document).ready( function(){
 				{
 						$('#pause').text("Pause");
 						saveSettings();
+						poms=0;
 						restartTimer();
 				}
 		});
@@ -186,21 +192,6 @@ $(document).ready( function(){
 		}
 
 
-		// Interval Options     ************************************************************************
-		// Short Break Options
-		for (var i=1; i<=10; i++){
-				$(".short-break").append("<option>"+i+"</option>");
-		}
-		// Long Break Options
-		for (var i=10; i<=30; i++){
-				$(".long-break").append("<option>"+i+"</option>");
-		}
-		// Study Time Options
-		for (var i=20; i<=30; i++){
-				$(".study-time").append("<option>"+i+"</option>");
-		}
-
-
 		// Pomodoro technique algorithm to ensure the proper interval for the timer *********************
 		var getInterval = function(){
 				isStudyTime = true;
@@ -214,7 +205,7 @@ $(document).ready( function(){
 								interval = studyTime;
 								break;
 						case longBreak:
-								interval = studyTime;
+								poms = 0;	//reset poms
 				}
 				if (poms == 0){
 						interval = studyTime;
@@ -243,7 +234,7 @@ $(document).ready( function(){
 				if (distance <= 0) {
 						clearInterval(id);
 						timerEnd();
-						restartTimer(interval = getInterval(), 0); //start next interval
+						restartTimer(); //start next interval
 				}
 
 				var minutes = Math.floor((distance) / minute),
@@ -254,13 +245,12 @@ $(document).ready( function(){
 				countdownElement.textContent = minutes + ':' + seconds;
 		}
 
-		// What happens when interval has ended:
-		function timerEnd() {
+		function timerEnd() { // What happens when interval has ended
 				playAlarm();
+
 				switch (interval){
 						case studyTime: 
-								if (isStudyTime){ 	// Added extra check in case studyTime and 
-													// longBreak are the same amount.
+								if (isStudyTime){ 	// Added extra check in case studyTime and longBreak are the same amount.
 										poms++;		// VERY IMPORTANT
 										if (isTimeForLongBreak) { say("Nice work. Take a break!");}	// add a feature to pull a message randomly from a list^^ ie: "Time for a snack!", "Nice work!", "Let's get shit done"
 								}
@@ -275,7 +265,8 @@ $(document).ready( function(){
 		}
 
 		function startTimer(m, s) {
-				console.log(interval);
+				console.log("in start timer func. Interval: "+ interval);
+				console.log("poms: "+poms);
 				end = Date.now() + (m * 60 * 1000) + (s*1000);
 				id = setInterval(showTimer, 10);
 		}
@@ -291,16 +282,12 @@ $(document).ready( function(){
 		}
 
 		function restartTimer(){
-				poms = 0;
 				pauseTimer();
 				startTimer(interval = getInterval(), 0);
 		}
 
 
-
 		// *****************************************************************************************
-
-
 		// Add code to append to do list items and strike them out when clicked?
 		// Keep in a database and associate with a session cookie?
 		
