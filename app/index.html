@@ -26,94 +26,95 @@
     {{content-for "head-footer"}}
   </head>
   <body>
-    {{content-for "body"}}
-	<div id="audio"></div>
-	<div class="wrapper">
-			<div class="row">
-					<div class="col-sm-4" id="side_pane">
+		  {{content-for "body"}}
+		  <div id="audio"></div>
+		  <div class="wrapper">
+				  <div class="row">
+						  <div class="col-sm-4" id="side_pane">
 
-							<h1 id="title">My Pomo</h1>
-							<p>Welcome to MyPomo, your free, easy, online Pomodoro Timer</p>
-							<br>
+								  <h1 id="title">My Pomo</h1>
+								  <p>Welcome to MyPomo, your free, easy, online Pomodoro Timer</p>
+								  <br>
+								  <div id="accordion" class="menu">
+										  <div class="card" id="settings">
+												  <div class="card-header">
+														  <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+																  Settings
+														  </a>
+												  </div>
+												  <div id="collapseOne" class="collapse show">
+														  <div class="card-body">
+																  <div class="form-group">
+																		  <span id="intervals">
+																				  <label for="sb">Short Break:</label>
+																				  <input type="number" class="short-break" value="5" id="sb" min='1' max='20'>
+																				  </input>
+																				  <br>
 
-							<div class="menu">
-									<div class="panel-group" id="accordion">
-											<div class="panel panel-default side_pane_container" id="settings">
-													<div class="panel-heading">
-															<h4 class="panel-title">
-																	<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Settings</a>
-															</h4>
-													</div>
-													<div id="collapse1" class="panel-collapse collapse in">
-															<div class="panel-body">
-																			<div class="form-group">
-																					<span id="intervals">
-																							<label for="sb">Short Break:</label>
-																							<input type="number" class="short-break" value="5" id="sb" min='1' max='20'>
-																							</input>
-																							<br>
+																				  <label for="lb">Long Break:</label>
+																				  <input type="number" class="long-break" value="25" id="lb" min='1' max='60'>
+																				  </input>
+																				  <br>
 
-																							<label for="lb">Long Break:</label>
-																							<input type="number" class="long-break" value="25" id="lb" min='1' max='60'>
-																							</input>
-																							<br>
+																				  <label for="st">Study Time:</label>
+																				  <input type="number" class="study-time" value="25" id="st" min='0' max='40'>
+																				  </input>
+																				  <br>
 
-																							<label for="st">Study Time:</label>
-																							<input type="number" class="study-time" value="25" id="st" min='0' max='40'>
-																							</input>
-																							<br>
+																				  <label for="pp">Pomodoros until Break:</label>
+																				  <input type="number" class="pomsperset" value="4" id="pp" min='2' max='6'>
+																				  </input>
+																				  <br>
+																		  </span>
+																		  <label for="sel1">Alarm Sound:</label>
+																		  <select class="form-control alarm-menu" id="sel1">
+																		  </select>
+																		  <br>
+																		  <br>
+																		  <button id="update-settings"> Update Settings </button>
 
-																							<label for="pp">Pomodoros until Break:</label>
-																							<input type="number" class="pomsperset" value="4" id="pp" min='2' max='6'>
-																							</input>
-																							<br>
-																					</span>
-																					<label for="sel1">Alarm Sound:</label>
-																					<select class="form-control alarm-menu" id="sel1">
-																					</select>
-																					<br>
-																					<br>
-																					<button id="update-settings"> Update Settings </button>
-																	</div>
-															</div>
-													</div>
-											</div>
-											<div class="panel panel-default" id="about">
-													<div class="panel-heading">
-															<h4 class="panel-title">
-																	<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">About</a>
-															</h4>
-													</div>
-													<div id="collapse2" class="panel-collapse collapse">
-															<div class="panel-body">
-																The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. The technique uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks. These intervals are named pomodoros, the plural in English of the Italian word pomodoro (tomato), after the tomato-shaped kitchen timer that Cirillo used as a university student.	
-																<br>
-																Studies have found that humans easily lose focus after just 30 minutes of hard work. By taking a short break, you can circumvent this and boost productivity.
-																<a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Wikipidia</a>
-															</div>
-													</div>
-											</div>
-											<div class="panel panel-default" id="usage">
-													<div class="panel-heading">
-															<h4 class="panel-title">
-																	<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Usage</a>
-															</h4>
-													</div>
-													<div id="collapse3" class="panel-collapse collapse">
-															<div class="panel-body">
-																	<ol>
-																			<li>Decide on the task to be done.</li>
-																			<li>Set the Pomodoro Timer.</li>
-																			<li>Work on only that task or topic.</li>
-																			<li>Stop working when timer rings.</li>
-																			<li>Take a short break, then return to step 2.</li>
-																			<li>After a set of pomodoros (usually 4) take a long break then go to step 1.</li>
-																	</ol>
-															</div>
-													</div>
-											</div>
-									</div> 
-							</div>
+																  </div>
+														  </div>
+												  </div>
+												  <div class="card" id="about">
+														  <div class="card-header">
+																  <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+																		  About
+																  </a>
+														  </div>
+														  <div id="collapseTwo" class="collapse">
+																  <div class="card-body">
+																		  The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. The technique uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks. These intervals are named pomodoros, the plural in English of the Italian word pomodoro (tomato), after the tomato-shaped kitchen timer that Cirillo used as a university student.	
+																		  <br>
+																		  Studies have found that humans easily lose focus after just 30 minutes of hard work. By taking a short break, you can circumvent this and boost productivity.
+																		  <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Wikipidia</a>
+
+																  </div>
+														  </div>
+												  </div>
+												  <div class="card" id="usage">
+														  <div class="card-header">
+																  <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+																		  Usage
+																  </a>
+														  </div>
+														  <div id="collapseThree" class="collapse">
+																  <div class="card-body">
+
+																		  <ol>
+																				  <li>Decide on the task to be done.</li>
+																				  <li>Set the Pomodoro Timer.</li>
+																				  <li>Work on only that task or topic.</li>
+																				  <li>Stop working when timer rings.</li>
+																				  <li>Take a short break, then return to step 2.</li>
+																				  <li>After a set of pomodoros (usually 4) take a long break then go to step 1.</li>
+																		  </ol>
+																  </div>
+														  </div>
+												  </div>
+										  </div>
+
+						</div>
 
 
 							<!-- add to do list later maybe? 

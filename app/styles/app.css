@@ -26,12 +26,19 @@ html,body{
 #title {
 }
 
-.menu .panel-title a{
+.menu .card-header a{
 		color: black;
+		border: none;
 }
-.menu .panel {
+
+.menu .card {
+		width: 280px;
+}
+
+.menu .card-body {
 		padding: 15px;
-		width:270px;
+		overflow-y: scroll;
+		max-height: 294px;
 }
 
 #side_pane #intervals label {
@@ -39,7 +46,7 @@ html,body{
 		width: 180px;
 }
 
-#settings {
+#settings, #settings .card-header {
 		background-color: hsla(0, 0%, 85%, .80);
 }
 
@@ -52,11 +59,11 @@ html,body{
 		border: none;
 }
 
-#about {
+#about, #about .card-header {
 		background-color: hsla(60, 100%, 85%, .75);
 }
 
-#usage  {
+#usage, #usage .card-header  {
 		background-color: hsla(0, 84%, 81%, .75);
 }
 
