@@ -1,16 +1,18 @@
-html,body{
+html, body{
 		height: 100%;
 		background-color: #9ce29c;
 }
 
 .wrapper {
-		height: 700px;
-		width: 900px;
-		border: 20px solid #9ce29c;
+		height: 621px;
+		width: 920px;
+		padding: 20px;
 	    display: flex-grow;
 		justify-self: center;
 		margin: auto;
+		margin-top: 20px;
 }
+
 
 .row {	height: 100%;}
 
@@ -26,9 +28,49 @@ html,body{
 #title {
 }
 
+#pom-tally-div {
+		background-color: #c4eec4;
+		height: 29px;
+		padding: 3px 2px 2px 3px;
+		border: 2px solid gray;
+		width: 280px;
+}
+
+#pom-tally { 
+		display: inline-block; 
+}
+
+#pom-tally img {
+		margin: 0 10px 2px 0;
+}
+
+.action {
+		float: right;
+		height: 20px;
+		width: 20px;
+		color: gray;
+		padding: 0px 2px 4px 2px;
+		border: 1px solid gray;
+}
+
+.action:active {
+		background-color: #d9d9d9;
+
+}
+
+.menu {
+		position: absolute;
+		bottom: 0;
+}
+
 .menu .card-header a{
 		color: black;
 		border: none;
+}
+
+.menu .card-header {
+		padding: 5px 0 0 15px;
+		height: 35px;
 }
 
 .menu .card {
@@ -38,7 +80,7 @@ html,body{
 .menu .card-body {
 		padding: 15px;
 		overflow-y: scroll;
-		max-height: 294px;
+		max-height: 270px;
 }
 
 #side_pane #intervals label {
@@ -56,7 +98,11 @@ html,body{
 }
 
 #update-settings {
-		border: none;
+		border: 1px solid gray;
+}
+
+#repeat-div {
+		float: right;
 }
 
 #about, #about .card-header {
@@ -67,16 +113,24 @@ html,body{
 		background-color: hsla(0, 84%, 81%, .75);
 }
 
-#task-list {
-		background-color: #ffffcc;
-		height:200px;
-}
-
-
 .alarm-menu {
 		display: inline-block;
 		width: 133px;
 		height: 10px;
+}
+
+#load-user-div input {
+		width: 170px;
+		display: inline-block;
+}
+
+#load-user-div button {
+		float: right;
+		display: inline-block;
+}
+
+ol {
+		margin-left: -25px;
 }
 
 
@@ -89,30 +143,53 @@ html,body{
 		background-color: #c4eec4;
 }
 
+#pomodoro img {
+		width: 580px;
+}
+
 #innerPom{
 		align-self: center;
 		color: #c04242;
 		position: absolute;
 }
+
 #timer{
 		font-size: 80pt;
 }
 
-#pause {
+.pomo-button{
 		color: #c04242;
-		width: 130px;
 		font-size: 20pt;
 		background-color: #ffb3b3;
 		border: 2px solid #993333;
 		text-align: center;
-		margin:-10px 50px 0 50px ;
+		position: absolute;
 }
 
-#pause:hover{
+#reset {
+		width: 95px;
+		height: 50px;
+		right: 5px;
+		bottom: 5px;
+}
+
+#pause {
+		margin:10px 50px 0 50px ;
+		width: 130px;
+}
+
+.pomo-button:hover{
 		background-color: #f7a6a6;
 }
 
-#pause:active{
+.pomo-button:active{
 		background-color: #ff9999;
 		color:#993333;
+}
+
+#smiley {
+		visibility: hidden;
+		font-size: 150pt;
+		margin:auto;
+		margin-top:-20px;
 }
