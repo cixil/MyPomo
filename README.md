@@ -6,4 +6,4 @@ What's that? [Wikipedia](https://en.wikipedia.org/wiki/Pomodoro_technique)
 
 Access the timer [on the github page for this repository](https://cixil.github.io/MyPomo/)  
 
-If it has an kinks or looks odd in your browser, please let me know or fix it and submit a pull request :)
+This does not look slick in all browsers. Feel free to fix the look and submit a pull request :)
